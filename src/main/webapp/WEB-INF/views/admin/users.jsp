@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="text-right mb-4">
-        <a href="/users/create" class="text-decoration-none btn btn-primary">Add new Admin</a>
+        <a href="/admin/users/create" class="text-decoration-none btn btn-primary">Add new Admin</a>
     </div>
     <div class="card card-small mb-4">
         <div class="card-header bg-light">
@@ -23,6 +23,7 @@
                     <th scope="col" class="border-0">#</th>
                     <th scope="col" class="border-0">Name</th>
                     <th scope="col" class="border-0">Username</th>
+                    <th scope="col" class="border-0">Created Date</th>
                     <th scope="col" class="border-0">Approved</th>
                     <th scope="col" class="border-0">Action</th>
                 </tr>
@@ -43,19 +44,20 @@
                         <td>${counter.index +1}</td>
                         <td>${blogger.fullName}</td>
                         <td>${blogger.username}</td>
+                        <td>${blogger.createdAt}</td>
                         <td class="align-middle"><input type="checkbox" ${blogger.enabled ? 'checked' : ''} disabled></td>
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <c:choose>
                                     <c:when test="${blogger.enabled}">
-                                        <a href="/users/enabled/${blogger.id}" class="btn btn-danger">
+                                        <a href="/admin/users/enabled/${blogger.id}" class="btn btn-danger">
                                             <span class="text-white"><i class="fa fa-times"
                                                                         aria-hidden="true"></i></span>
                                             Reject
                                         </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="/users/enabled/${blogger.id}" class="btn btn-white">
+                                        <a href="/admin/users/enabled/${blogger.id}" class="btn btn-white">
                                             <span class="text-success"><i class="fa fa-check"
                                                                           aria-hidden="true"></i></span>
                                             Approve
@@ -82,6 +84,7 @@
                     <th scope="col" class="border-0">#</th>
                     <th scope="col" class="border-0">Name</th>
                     <th scope="col" class="border-0">Username</th>
+                    <th scope="col" class="border-0">Created Date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +94,7 @@
                         <td>${counter.index +1}</td>
                         <td>${admin.fullName}</td>
                         <td>${admin.username}</td>
+                        <td>${admin.createdAt}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

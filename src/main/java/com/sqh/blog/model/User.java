@@ -1,6 +1,7 @@
 package com.sqh.blog.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class User {
@@ -15,6 +16,11 @@ public class User {
     private boolean enabled;
     @Enumerated(EnumType.ORDINAL)
     private Role role;
+    private Date createdAt;
+
+    public User() {
+        createdAt = new Date();
+    }
 
     public Long getId() {
         return id;
@@ -62,5 +68,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

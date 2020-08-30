@@ -5,6 +5,7 @@ public class UserData {
     private String fullName;
     private String username;
     private boolean enabled;
+    private String createdAt;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class UserData {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -6,7 +6,7 @@
                 <h1 class="mt-4">${post.title}</h1>
                 <p class="lead">
                     by
-                    <a href="#">${post.postedBy}</a>
+                    <a href="#">${post.submittedByActor ? 'You' : post.postedBy}</a>
                 </p>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
@@ -23,14 +23,14 @@
     <c:otherwise>
         <div class="card card-small card-post mb-4">
             <div class="card-body">
-                <a class="text-decoration-none text-dark" href="/posts/detail/${post.id}"><h5
+                <a class="text-decoration-none text-dark" href="/m/posts/detail/${post.id}"><h5
                         class="card-title">${post.title}</h5></a>
                 <p class="card-text text-muted">${post.text}</p>
             </div>
             <div class="card-footer border-top d-flex">
                 <div class="card-post__author d-flex">
                     <div class="d-flex flex-column justify-content-center ml-3">
-                        <span class="card-post__author-name">${post.postedBy}</span>
+                        <span class="card-post__author-name">${post.submittedByActor ? 'You' : post.postedBy}</span>
                         <small class="text-muted">${post.postedAt}</small>
                     </div>
                 </div>

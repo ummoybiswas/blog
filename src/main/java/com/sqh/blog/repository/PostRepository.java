@@ -16,4 +16,6 @@ public interface PostRepository extends JpaRepository<Post, Long>, PostRepositor
     List<Post> findAllByOrderByIdDesc();
 
     List<Post> findByApprovedOrPostedByOrderByIdDesc(boolean approved, User postedBy);
+
+    Optional<Post> findByIdAndPostedBy(Long postId, User postedBy);
 }

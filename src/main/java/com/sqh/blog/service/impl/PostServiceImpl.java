@@ -28,19 +28,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findApprovedPost(Long id, User user) {
-        if (user.getRole().isAdmin()) {
-            return findPostById(id).orElse(null);
-        }
-        return postRepository.findApprovedPost(id, user);
+    public Post findApprovedPostOrOwnPost(Long id, User user) {
+        return postRepository.findApprovedPostOrOwnPost(id, user);
+    }
+
+    @Override
+    public Optional<Post> findPostByUser(Long id, User user) {
+        return postRepository.findByIdAndPostedBy(id, user);
     }
 
     @Override
     public List<Post> findApprovedPostsIncluding(User user) {
-        if (user.getRole().isAdmin()) {
-            return findAllPosts();
-        }
         return postRepository.findByApprovedOrPostedByOrderByIdDesc(true, user);
+    }
+
+    @Override
+    public Post findApprovedPostExcluding(Long id, User user) {
+        return postRepository.findApprovedPostExcluding(id, user);
     }
 
     @Override
@@ -85,15 +89,25 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean isPostLikedByUser(Post post, User user) {
+    public boolean isLikedByUser(Post post, User user) {
         PostLikes postLikes = postLikesRepository.findByPostIdAndAndUserId(post.getId(), user.getId()).orElse(null);
         return postLikes != null && postLikes.getLikeValue().isLike();
     }
 
     @Override
-    public boolean isPostDislikedByUser(Post post, User user) {
+    public boolean isDislikedByUser(Post post, User user) {
         PostLikes postLikes = postLikesRepository.findByPostIdAndAndUserId(post.getId(), user.getId()).orElse(null);
         return postLikes != null && postLikes.getLikeValue().isDislike();
+    }
+
+    @Override
+    public Integer findLikeCount(Post post) {
+        return postLikesRepository.countByPostIdAndAndLikeValue(post.getId(), LikeValue.LIKE);
+    }
+
+    @Override
+    public Integer findDislikeCount(Post post) {
+        return postLikesRepository.countByPostIdAndAndLikeValue(post.getId(), LikeValue.DISLIKE);
     }
 
     @Transactional

@@ -31,8 +31,10 @@ public class PostViewDataMapper {
         postData.setPostedAt(new SimpleDateFormat("dd MMM YYYY").format(post.getCreatedAt()));
         postData.setPostedBy(post.getPostedBy().getFullName());
         postData.setApprovedPost(post.isApproved());
-        postData.setLikedByActor(postService.isPostLikedByUser(post, actorUser));
-        postData.setDislikedByActor(postService.isPostDislikedByUser(post, actorUser));
+        postData.setLikedByActor(postService.isLikedByUser(post, actorUser));
+        postData.setDislikedByActor(postService.isDislikedByUser(post, actorUser));
+        postData.setLikeCount(postService.findLikeCount(post));
+        postData.setDislikeCount(postService.findDislikeCount(post));
 
         if (actorUser != null) {
             postData.setAdmin(actorUser.getRole().isAdmin());

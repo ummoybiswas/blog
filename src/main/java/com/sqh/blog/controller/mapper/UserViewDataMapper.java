@@ -27,6 +27,7 @@ public class UserViewDataMapper {
         userData.setEnabled(user.isEnabled());
         userData.setFullName(user.getFullName());
         userData.setUsername(user.getUsername());
+        userData.setCreatedAt(new SimpleDateFormat("dd MMM YYYY").format(user.getCreatedAt()));
 
         return userData;
     }

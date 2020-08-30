@@ -11,6 +11,8 @@ public class PostData {
     private boolean submittedByActor;
     private boolean likedByActor;
     private boolean dislikedByActor;
+    private int likeCount;
+    private int dislikeCount;
 
     public long getId() {
         return id;
@@ -90,5 +92,21 @@ public class PostData {
 
     public void setDislikedByActor(boolean dislikedByActor) {
         this.dislikedByActor = dislikedByActor;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(int dislikeCount) {
+        this.dislikeCount = dislikeCount;
     }
 }

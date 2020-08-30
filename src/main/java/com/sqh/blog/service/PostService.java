@@ -9,9 +9,13 @@ import java.util.Optional;
 public interface PostService {
     Optional<Post> findPostById(Long id);
 
-    Post findApprovedPost(Long id, User user);
+    Post findApprovedPostOrOwnPost(Long id, User user);
+
+    Optional<Post> findPostByUser(Long id, User user);
 
     List<Post> findApprovedPostsIncluding(User user);
+
+    Post findApprovedPostExcluding(Long id, User user);
 
     List<Post> findAllPosts();
 
@@ -21,9 +25,13 @@ public interface PostService {
 
     void dislikePost(Post post, User user);
 
-    boolean isPostLikedByUser(Post post, User user);
+    boolean isLikedByUser(Post post, User user);
 
-    boolean isPostDislikedByUser(Post post, User user);
+    boolean isDislikedByUser(Post post, User user);
+
+    Integer findLikeCount(Post post);
+
+    Integer findDislikeCount(Post post);
 
     Post approvePost(Post post);
 

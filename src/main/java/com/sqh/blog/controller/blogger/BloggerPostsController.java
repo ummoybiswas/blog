@@ -1,4 +1,4 @@
-package com.sqh.blog.controller;
+package com.sqh.blog.controller.blogger;
 
 import com.sqh.blog.controller.form.PostForm;
 import com.sqh.blog.controller.mapper.PostViewDataMapper;
@@ -20,7 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-public class PostsController {
+@RequestMapping("/m")
+public class BloggerPostsController {
 
     @Autowired
     private PostViewDataMapper mapper;
@@ -31,9 +32,9 @@ public class PostsController {
     @Autowired
     private PostValidator postValidator;
 
-    private final String VIEW_PREFIX = "common/";
+    private final String VIEW_PREFIX = "blogger/";
 
-    @GetMapping("/")
+    @GetMapping
     public String posts(Model model) {
         User user = getActorUser();
         List<Post> posts = postService.findApprovedPostsIncluding(user);
@@ -59,13 +60,13 @@ public class PostsController {
 
         Post post = postService.createPost(postForm.getTitle(), postForm.getText(), getActorUser());
 
-        return "redirect:/posts/detail/" + post.getId();
+        return "redirect:/m/posts/detail/" + post.getId();
     }
 
     @GetMapping("/posts/detail/{id}")
     public String detailPost(@PathVariable long id, Model model) {
         User actorUser = getActorUser();
-        Post post = postService.findApprovedPost(id, actorUser);
+        Post post = postService.findApprovedPostOrOwnPost(id, actorUser);
 
         if (post != null) {
             model.addAttribute("post", mapper.map(post, actorUser));
@@ -79,12 +80,10 @@ public class PostsController {
     @GetMapping("/posts/like/{id}")
     public String likePost(@PathVariable long id, @RequestParam(required = false) boolean detailPage, Model model) {
         User actorUser = getActorUser();
-        Post post = postService.findApprovedPost(id, actorUser);
+        Post post = postService.findApprovedPostExcluding(id, actorUser);
         if (post != null) {
             postService.likePost(post, actorUser);
             model.addAttribute("post", mapper.map(post, actorUser));
-        } else {
-            model.addAttribute("message", "Operation is not permitted");
         }
 
         model.addAttribute("detailPage", detailPage);
@@ -95,12 +94,10 @@ public class PostsController {
     @GetMapping("/posts/dislike/{id}")
     public String dislikePost(@PathVariable long id, @RequestParam(required = false) boolean detailPage, Model model) {
         User actorUser = getActorUser();
-        Post post = postService.findApprovedPost(id, actorUser);
+        Post post = postService.findApprovedPostExcluding(id, actorUser);
         if (post != null) {
             postService.dislikePost(post, actorUser);
             model.addAttribute("post", mapper.map(post, actorUser));
-        } else {
-            model.addAttribute("message", "Operation is not permitted");
         }
 
         model.addAttribute("detailPage", detailPage);
@@ -109,16 +106,16 @@ public class PostsController {
     }
 
     @GetMapping("/posts/delete/{id}")
-    public String deletePost(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+    public String deletePost(@PathVariable long id, RedirectAttributes redirectAttributes) {
         User actorUser = getActorUser();
-        Post post = postService.findApprovedPost(id, actorUser);
+        Post post = postService.findPostByUser(id, actorUser).orElse(null);
         if (post != null) {
             postService.deletePost(post);
         } else {
             redirectAttributes.addFlashAttribute("message", "Operation is not permitted");
         }
 
-        return "redirect:/";
+        return "redirect:/m";
     }
 
     @GetMapping("/posts/approve/{id}")
