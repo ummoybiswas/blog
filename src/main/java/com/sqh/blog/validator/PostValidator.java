@@ -1,11 +1,6 @@
 package com.sqh.blog.validator;
 
 import com.sqh.blog.controller.form.PostForm;
-import com.sqh.blog.controller.form.RegistrationForm;
-import com.sqh.blog.service.PostService;
-import com.sqh.blog.service.UserService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

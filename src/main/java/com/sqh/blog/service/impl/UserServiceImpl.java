@@ -4,7 +4,6 @@ import com.sqh.blog.model.Role;
 import com.sqh.blog.model.User;
 import com.sqh.blog.repository.UserRepository;
 import com.sqh.blog.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

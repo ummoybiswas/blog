@@ -1,16 +1,11 @@
 package com.sqh.blog.controller.mapper;
 
-import com.sqh.blog.controller.data.PostData;
 import com.sqh.blog.controller.data.UserData;
-import com.sqh.blog.model.Post;
 import com.sqh.blog.model.User;
-import com.sqh.blog.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
