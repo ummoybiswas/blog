@@ -22,7 +22,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/m")
 public class BloggerPostsController {
-
     @Autowired
     private PostViewDataMapper mapper;
     @Autowired

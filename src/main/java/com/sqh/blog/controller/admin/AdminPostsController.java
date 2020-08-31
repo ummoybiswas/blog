@@ -21,7 +21,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminPostsController {
-
     @Autowired
     private PostViewDataMapper mapper;
     @Autowired
