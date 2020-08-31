@@ -1,5 +1,6 @@
 package com.sqh.blog.service.impl;
 
+import com.sqh.blog.exception.PostNotFoundException;
 import com.sqh.blog.model.LikeValue;
 import com.sqh.blog.model.Post;
 import com.sqh.blog.model.PostLikes;
@@ -28,8 +29,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findApprovedPostOrOwnPost(Long id, User user) {
-        return postRepository.findApprovedPostOrOwnPost(id, user);
+    public Post getPost(Long id) {
+        return findPostById(id).orElseThrow(PostNotFoundException::new);
+    }
+
+    @Override
+    public Optional<Post> findApprovedPostOrOwnPost(Long id, User user) {
+        return Optional.ofNullable(postRepository.findApprovedPostOrOwnPost(id, user));
     }
 
     @Override
@@ -43,8 +49,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findApprovedPostExcluding(Long id, User user) {
-        return postRepository.findApprovedPostExcluding(id, user);
+    public Optional<Post> findApprovedPostExcluding(Long id, User user) {
+        return Optional.ofNullable(postRepository.findApprovedPostExcluding(id, user));
     }
 
     @Override

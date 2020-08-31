@@ -4,6 +4,9 @@ $(document).on("click", "#like-btn", function () {
     oPromise.done(function (oHtml) {
         $("#post-" + postId).html(oHtml);
     });
+    oPromise.fail(function() {
+        alert("Something went wrong. Please try again!");
+    });
 });
 
 $(document).on("click", "#dislike-btn", function () {
@@ -11,6 +14,9 @@ $(document).on("click", "#dislike-btn", function () {
     let oPromise = $.get('/m/posts/dislike/' + postId + '?detailPage=' + detailPage, null);
     oPromise.done(function (oHtml) {
         $("#post-" + postId).html(oHtml);
+    });
+    oPromise.fail(function() {
+        alert("Something went wrong. Please try again!");
     });
 });
 

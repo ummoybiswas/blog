@@ -9,13 +9,15 @@ import java.util.Optional;
 public interface PostService {
     Optional<Post> findPostById(Long id);
 
-    Post findApprovedPostOrOwnPost(Long id, User user);
+    Post getPost(Long id);
+
+    Optional<Post> findApprovedPostOrOwnPost(Long id, User user);
 
     Optional<Post> findPostByUser(Long id, User user);
 
     List<Post> findApprovedPostsIncluding(User user);
 
-    Post findApprovedPostExcluding(Long id, User user);
+    Optional<Post> findApprovedPostExcluding(Long id, User user);
 
     List<Post> findAllPosts();
 
